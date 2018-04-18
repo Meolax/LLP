@@ -17,7 +17,7 @@ namespace LLP
         {
             InitializeComponent();
         }
-        //56454
+       
         private double returnValueFromTextBox (TextBox textBox)
         {
             try
@@ -31,22 +31,23 @@ namespace LLP
         }
         private void createFunc (params double[] num)
         {
-           // chart1.Series.Add("q");
-            chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline; // тут сами поизменяет/повыбирайте тип вывода графика
-            chart1.Series[0].Points.Clear();
-            for (double i = -10; i < 10; i += 0.1)
+            var index = chart1.Series.Count;
+            chart1.Series.Add(index.ToString());
+            chart1.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline; 
+            chart1.Series[index].Points.Clear();
+            for (double i = -10; i <= 10; i += 0.1)
             {
                 var x = Math.Round(i, 2);
-                chart1.Series[0].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
+                if (x % 0.5 == 0)
+                {
+                    chart1.Series[index].Points.AddXY(x-1, ((num[2]) - num[1] * x-1) / (num[0])-1);
+                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
+                }
+                else
+                {
+                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
+                }
             }
-                
-            createStrich(chart1);
-        }
-
-        private void createStrich (Chart chart)
-        {
-            var x = chart.Series[0].Points;
-            
         }
 
         private void button1_Click (object sender, EventArgs e)
@@ -55,7 +56,6 @@ namespace LLP
             double c2 = returnValueFromTextBox(textBox2);
             double c3 = returnValueFromTextBox(textBox3);
             createFunc(c1, c2, c3);
-
         }
     }
 }
