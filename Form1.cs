@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace LLP
 {
@@ -30,12 +31,24 @@ namespace LLP
         }
         private void createFunc (params double[] num)
         {
-
+           // chart1.Series.Add("q");
             chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline; // тут сами поизменяет/повыбирайте тип вывода графика
             chart1.Series[0].Points.Clear();
-            for (double i = 0; i < 100; i += 0.1)
-                chart1.Series[0].Points.AddXY(i, ((num[2]) - num[1] * i) / num[0]);
+            for (double i = -10; i < 10; i += 0.1)
+            {
+                var x = Math.Round(i, 2);
+                chart1.Series[0].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
+            }
+                
+            createStrich(chart1);
         }
+
+        private void createStrich (Chart chart)
+        {
+            var x = chart.Series[0].Points;
+            
+        }
+
         private void button1_Click (object sender, EventArgs e)
         {
             double c1 = returnValueFromTextBox(textBox1);
