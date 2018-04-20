@@ -26,21 +26,24 @@ namespace LLP
             }
             catch
             {
-                return 0;
+                textBox.Text = "1";
+                return 1;
             }
         }
         private void createFunc (params double[] num)
         {
             var index = chart1.Series.Count;
             chart1.Series.Add(index.ToString());
-            chart1.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline; 
+            chart1.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line; 
             chart1.Series[index].Points.Clear();
             for (double i = -10; i <= 10; i += 0.1)
             {
                 var x = Math.Round(i, 2);
-                if (x % 0.5 == 0)
+                if (x % 0.2 == 0)
                 {
-                    chart1.Series[index].Points.AddXY(x-1, ((num[2]) - num[1] * x-1) / (num[0])-1);
+                    //fix strich
+                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
+                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * (x-1)) / (num[0])-1);
                     chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
                 }
                 else
