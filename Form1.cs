@@ -13,6 +13,7 @@ namespace LLP
 {
     public partial class Form1 : Form
     {
+        public Random random = new Random();
         public Form1 ()
         {
             InitializeComponent();
@@ -26,29 +27,45 @@ namespace LLP
             }
             catch
             {
-                textBox.Text = "1";
-                return 1;
+                double result = Math.Round(random.NextDouble() * 10,2);
+                textBox.Text = result.ToString();
+                return result;
             }
         }
+
+        private int createNewSeries ()
+        {
+            var index = chartGraphic.Series.Count;
+            chartGraphic.Series.Add(index.ToString());
+            chartGraphic.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            return index;
+        }
+
+        private void addDotWithStrich (int index, double x, params double[] num)
+        {
+            chartGraphic.Series[index].Points.AddXY(x, (num[2] - num[1] * x) / num[0]);
+            chartGraphic.Series[index].Points.AddXY(x - 1, ((num[2]) - num[1] * x - 1) / (num[0]) - 1);
+            chartGraphic.Series[index].Points.AddXY(x, (num[2] - num[1] * x) / num[0]);
+        }
+
         private void createFunc (params double[] num)
         {
-            var index = chart1.Series.Count;
-            chart1.Series.Add(index.ToString());
-            chart1.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line; 
-            chart1.Series[index].Points.Clear();
-            for (double i = -10; i <= 10; i += 0.1)
+            var index = createNewSeries();
+            for (double i = -10; i <= 30; i += 0.1)
             {
                 var x = Math.Round(i, 2);
-                if (x % 0.2 == 0)
+                while ((num[2] - num[1] * x - 1)/num[0] < 0)
                 {
-                    //fix strich
-                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
-                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * (x-1)) / (num[0])-1);
-                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
+                    x -= 0.0001;
+                }
+            
+                if (x % 0.5 == 0)
+                {
+                    addDotWithStrich(index, x, num);                    
                 }
                 else
                 {
-                    chart1.Series[index].Points.AddXY(x, ((num[2]) - num[1] * x) / num[0]);
+                    chartGraphic.Series[index].Points.AddXY(x, (num[2] - num[1] * x) / num[0]);
                 }
             }
         }

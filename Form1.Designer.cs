@@ -34,8 +34,8 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.chartGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).BeginInit();
             this.SuspendLayout();
             // 
             // textBox1
@@ -69,35 +69,35 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // chart1
+            // chartGraphic
             // 
             chartArea1.AxisX.Minimum = 0D;
             chartArea1.AxisY.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
             chartArea1.AxisY.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Number;
             chartArea1.AxisY.Minimum = 0D;
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            this.chartGraphic.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(508, 56);
-            this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(545, 339);
-            this.chart1.TabIndex = 3;
-            this.chart1.Text = "chart1";
+            this.chartGraphic.Legends.Add(legend1);
+            this.chartGraphic.Location = new System.Drawing.Point(475, 56);
+            this.chartGraphic.Name = "chartGraphic";
+            this.chartGraphic.Size = new System.Drawing.Size(578, 444);
+            this.chartGraphic.TabIndex = 3;
+            this.chartGraphic.Text = "chart1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1103, 696);
-            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.chartGraphic);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Name = "Form1";
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,7 +109,7 @@
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartGraphic;
     }
 }
 
