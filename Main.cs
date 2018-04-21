@@ -11,10 +11,10 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace LLP
 {
-    public partial class Form1 : Form
+    public partial class Main : Form
     {
         public Random random = new Random();
-        public Form1 ()
+        public Main ()
         {
             InitializeComponent();
         }
@@ -83,18 +83,38 @@ namespace LLP
 
         private void button1_Click (object sender, EventArgs e)
         {
-            double c1 = returnValueFromTextBox(textBox1);
-            double c2 = returnValueFromTextBox(textBox2);
-            double c3 = returnValueFromTextBox(textBox3);
+
             //createFunc(0.1, c1, c2, c3);
-            createGraphic(c1, c2, c3);
+            // createGraphic(c1, c2, c3);
         }
 
         private void button2_Click (object sender, EventArgs e)
         {
-            textBox1.Text = "";
-            textBox2.Text = "";
-            textBox3.Text = "";
+            
+            dataGridView1.ColumnCount = 3;
+            dataGridView1.Columns[0].Name = "Product ID";
+            dataGridView1.Columns[1].Name = "Product Name";
+            dataGridView1.Columns[2].Name = "Product Price";
+
+            string[] row = new string[] { "1", "Product 1", "1000" };
+            dataGridView1.Rows.Add(row);
+            row = new string[] { "2", "Product 2", "2000" };
+            dataGridView1.Rows.Add(row);
+            row = new string[] { "3", "Product 3", "3000" };
+            dataGridView1.Rows.Add(row);
+            row = new string[] { "4", "Product 4", "4000" };
+            dataGridView1.Rows.Add(row);
+
+
+            //
+            DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
+            cmb.HeaderText = "Select Data";
+            cmb.Name = "cmb";
+            cmb.MaxDropDownItems = 4;
+            cmb.Items.Add(">=");
+            cmb.Items.Add("<=");
+            dataGridView1.Columns.Add(cmb);
+
         }
     }
 }
