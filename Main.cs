@@ -91,19 +91,19 @@ namespace LLP
         private void button2_Click (object sender, EventArgs e)
         {
             
-            dataGridView1.ColumnCount = 3;
-            dataGridView1.Columns[0].Name = "Product ID";
-            dataGridView1.Columns[1].Name = "Product Name";
-            dataGridView1.Columns[2].Name = "Product Price";
+            systemOfConstraintsDataGridView.ColumnCount = 3;
+            systemOfConstraintsDataGridView.Columns[0].Name = "Product ID";
+            systemOfConstraintsDataGridView.Columns[1].Name = "Product Name";
+            systemOfConstraintsDataGridView.Columns[2].Name = "Product Price";
 
             string[] row = new string[] { "1", "Product 1", "1000" };
-            dataGridView1.Rows.Add(row);
+            systemOfConstraintsDataGridView.Rows.Add(row);
             row = new string[] { "2", "Product 2", "2000" };
-            dataGridView1.Rows.Add(row);
+            systemOfConstraintsDataGridView.Rows.Add(row);
             row = new string[] { "3", "Product 3", "3000" };
-            dataGridView1.Rows.Add(row);
+            systemOfConstraintsDataGridView.Rows.Add(row);
             row = new string[] { "4", "Product 4", "4000" };
-            dataGridView1.Rows.Add(row);
+            systemOfConstraintsDataGridView.Rows.Add(row);
 
 
             //
@@ -113,8 +113,23 @@ namespace LLP
             cmb.MaxDropDownItems = 4;
             cmb.Items.Add(">=");
             cmb.Items.Add("<=");
-            dataGridView1.Columns.Add(cmb);
+            systemOfConstraintsDataGridView.Columns.Add(cmb);
 
+        }
+
+        private void createTable (int kolvoStrok)
+        {
+            string[] row = new string [] { };
+            for (int i = 1; i <=kolvoStrok; i++)
+            {
+                row = new string[] { i.ToString(), "","" };
+                systemOfConstraintsDataGridView.Rows.Add(row);
+                systemOfConstraintsDataGridView.Rows[i - 1].Cells[3].Value = "<=" ;
+            }
+        }
+        private void button3_Click (object sender, EventArgs e)
+        {
+            createTable(3);
         }
     }
 }
