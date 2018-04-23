@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Microsoft.SolverFoundation.Common;
+using Microsoft.SolverFoundation.Services;
+
 
 namespace LLP
 {
@@ -54,18 +57,9 @@ namespace LLP
             for (double i = -10; i <= 30; i += shag)
             {
                 var x = Math.Round(i, 2);
-                if ((c1+(c2*x)-1)/c == 0)
-                {                    
-                    return;
-                }
-                if ((c1 + (c2 * x) - 1) / c < 0)
+                if (x % 0.5 == 0)
                 {
-                    chartGraphic.Series[index].Points.AddXY((c - c2 * 0) / c1, 0);
-                }
-
-                 if (x % 0.5 == 0)
-                {
-                    addDotWithStrich(index, x, c1,c2,c);                    
+                    addDotWithStrich(index, x, c1, c2, c);
                 }
                 else
                 {
@@ -86,39 +80,17 @@ namespace LLP
 
             //createFunc(0.1, c1, c2, c3);
             // createGraphic(c1, c2, c3);
+            systemOfConstraintsDataGridView.RowCount = 0;
         }
 
         private void button2_Click (object sender, EventArgs e)
         {
-            
-            systemOfConstraintsDataGridView.ColumnCount = 3;
-            systemOfConstraintsDataGridView.Columns[0].Name = "Product ID";
-            systemOfConstraintsDataGridView.Columns[1].Name = "Product Name";
-            systemOfConstraintsDataGridView.Columns[2].Name = "Product Price";
-
-            string[] row = new string[] { "1", "Product 1", "1000" };
-            systemOfConstraintsDataGridView.Rows.Add(row);
-            row = new string[] { "2", "Product 2", "2000" };
-            systemOfConstraintsDataGridView.Rows.Add(row);
-            row = new string[] { "3", "Product 3", "3000" };
-            systemOfConstraintsDataGridView.Rows.Add(row);
-            row = new string[] { "4", "Product 4", "4000" };
-            systemOfConstraintsDataGridView.Rows.Add(row);
-
-
-            //
-            DataGridViewComboBoxColumn cmb = new DataGridViewComboBoxColumn();
-            cmb.HeaderText = "Select Data";
-            cmb.Name = "cmb";
-            cmb.MaxDropDownItems = 4;
-            cmb.Items.Add(">=");
-            cmb.Items.Add("<=");
-            systemOfConstraintsDataGridView.Columns.Add(cmb);
-
+          
         }
 
         private void createTable (int kolvoStrok)
         {
+            
             string[] row = new string [] { };
             for (int i = 1; i <=kolvoStrok; i++)
             {
@@ -126,10 +98,49 @@ namespace LLP
                 systemOfConstraintsDataGridView.Rows.Add(row);
                 systemOfConstraintsDataGridView.Rows[i - 1].Cells[3].Value = "<=" ;
             }
+
+        }
+
+        private void solveLLP ()
+        {
+            SolverContext context = SolverContext.GetContext();
+            Model model = context.CreateModel();
+            Decision vz = new Decision(Domain.RealNonnegative, "barrels_venezuela");
+            Decision sa = new Decision(Domain.RealNonnegative, "barrels_saudiarabia");
+
+            model.AddDecisions(vz, sa);
+            model.AddConstraints("limits",
+                0 <= vz,
+                0 <= sa);
+
+            model.AddConstraints("production",
+                0.3 * sa + 0.4 * vz <= 2000,
+                0.4 * sa + 0.2 * vz <= 1500,
+                0.2 * sa + 0.3 * vz <= 500,
+                1 * sa <= 6000,
+                1 * vz <= 9000);
+            model.AddGoal("cost", GoalKind.Maximize,
+                                  20 * sa + 1000 * vz);
+
+
+            Solution solution = context.Solve(new SimplexDirective());
+
+            Report report = solution.GetReport();
+            richTextBox1.Text+= $"{vz} {sa}\n";
+            richTextBox1.Text += ("{0}", report);
+          
         }
         private void button3_Click (object sender, EventArgs e)
         {
-            createTable(3);
+            createTable(5);
+            
+           
+
+        }
+
+        private void button4_Click (object sender, EventArgs e)
+        {
+            systemOfConstraintsDataGridView.RowCount = 3;
         }
     }
 }
