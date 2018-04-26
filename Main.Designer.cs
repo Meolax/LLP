@@ -40,18 +40,21 @@
             this.Column4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.objectFunctionDataGridView = new System.Windows.Forms.DataGridView();
+            this.Column6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button4 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.systemOfConstraintsDataGridView)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectFunctionDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(430, 550);
+            this.button1.Location = new System.Drawing.Point(407, 478);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(97, 50);
             this.button1.TabIndex = 3;
@@ -71,15 +74,15 @@
             this.chartGraphic.ChartAreas.Add(chartArea2);
             legend2.Name = "Legend1";
             this.chartGraphic.Legends.Add(legend2);
-            this.chartGraphic.Location = new System.Drawing.Point(638, 102);
+            this.chartGraphic.Location = new System.Drawing.Point(625, 61);
             this.chartGraphic.Name = "chartGraphic";
-            this.chartGraphic.Size = new System.Drawing.Size(553, 393);
+            this.chartGraphic.Size = new System.Drawing.Size(599, 337);
             this.chartGraphic.TabIndex = 5;
             this.chartGraphic.Text = "chart1";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(604, 550);
+            this.button2.Location = new System.Drawing.Point(510, 478);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(105, 50);
             this.button2.TabIndex = 4;
@@ -91,18 +94,18 @@
             // 
             this.systemOfConstraintsDataGridView.AllowUserToAddRows = false;
             this.systemOfConstraintsDataGridView.AllowUserToDeleteRows = false;
-            this.systemOfConstraintsDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.systemOfConstraintsDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.systemOfConstraintsDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
             this.Column3,
             this.Column4,
             this.Column5});
-            this.systemOfConstraintsDataGridView.Location = new System.Drawing.Point(12, 114);
+            this.systemOfConstraintsDataGridView.Location = new System.Drawing.Point(12, 137);
             this.systemOfConstraintsDataGridView.Name = "systemOfConstraintsDataGridView";
             this.systemOfConstraintsDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.systemOfConstraintsDataGridView.RowTemplate.Height = 24;
-            this.systemOfConstraintsDataGridView.Size = new System.Drawing.Size(597, 261);
+            this.systemOfConstraintsDataGridView.Size = new System.Drawing.Size(607, 261);
             this.systemOfConstraintsDataGridView.TabIndex = 6;
             // 
             // Column1
@@ -116,11 +119,13 @@
             // 
             this.Column2.HeaderText = "x1";
             this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "x2";
             this.Column3.Name = "Column3";
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column4
             // 
@@ -130,72 +135,85 @@
             ">="});
             this.Column4.Name = "Column4";
             this.Column4.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "c";
             this.Column5.Name = "Column5";
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.textBox1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1203, 55);
+            this.groupBox1.Size = new System.Drawing.Size(1236, 44);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Количество строк системы ограничений";
             // 
-            // button3
+            // textBox1
             // 
-            this.button3.Location = new System.Drawing.Point(823, 545);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(194, 55);
-            this.button3.TabIndex = 8;
-            this.button3.Text = "button3";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox1.Location = new System.Drawing.Point(3, 18);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(1230, 22);
+            this.textBox1.TabIndex = 12;
+            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
+            this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
             // objectFunctionDataGridView
             // 
             this.objectFunctionDataGridView.AllowUserToAddRows = false;
             this.objectFunctionDataGridView.AllowUserToDeleteRows = false;
+            this.objectFunctionDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.objectFunctionDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.objectFunctionDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column6,
+            this.Column7,
+            this.Column8});
             this.objectFunctionDataGridView.Location = new System.Drawing.Point(12, 61);
             this.objectFunctionDataGridView.Name = "objectFunctionDataGridView";
             this.objectFunctionDataGridView.ReadOnly = true;
             this.objectFunctionDataGridView.RowTemplate.Height = 24;
-            this.objectFunctionDataGridView.Size = new System.Drawing.Size(597, 47);
+            this.objectFunctionDataGridView.Size = new System.Drawing.Size(607, 70);
             this.objectFunctionDataGridView.TabIndex = 9;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Column6";
+            this.Column6.Name = "Column6";
+            this.Column6.ReadOnly = true;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Column7";
+            this.Column7.Name = "Column7";
+            this.Column7.ReadOnly = true;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Column8";
+            this.Column8.Name = "Column8";
+            this.Column8.ReadOnly = true;
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(74, 426);
+            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.richTextBox1.Location = new System.Drawing.Point(0, 558);
             this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(284, 182);
+            this.richTextBox1.Size = new System.Drawing.Size(1236, 119);
             this.richTextBox1.TabIndex = 10;
             this.richTextBox1.Text = "";
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(475, 442);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(122, 53);
-            this.button4.TabIndex = 11;
-            this.button4.Text = "button4";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1203, 677);
-            this.Controls.Add(this.button4);
+            this.ClientSize = new System.Drawing.Size(1236, 677);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.objectFunctionDataGridView);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.systemOfConstraintsDataGridView);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button2);
@@ -205,6 +223,8 @@
             this.Text = "LLP";
             ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.systemOfConstraintsDataGridView)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectFunctionDataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -216,15 +236,17 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView systemOfConstraintsDataGridView;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.DataGridView objectFunctionDataGridView;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn Column6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button4;
     }
 }
 
