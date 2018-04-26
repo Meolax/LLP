@@ -50,7 +50,7 @@ namespace LLP
             #endregion
         }
 
-
+        //Закончить метод
         private void addGoal ()
         {
 

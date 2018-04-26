@@ -179,5 +179,7 @@ namespace LLP
             SolverLLP llp = new SolverLLP(createModelSystemOfConstraint());
             richTextBox1.Text = llp.report.ToString();
         }
+
+       
     }
 }
