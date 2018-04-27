@@ -32,7 +32,7 @@ namespace LLP
 
         private void button1_Click (object sender, EventArgs e)
         {
-            readFromDataGrid();
+            readConstraintSystemFromDataGrid();
             SolverLLP llp = new SolverLLP(createModelSystemOfConstraint());
             richTextBox1.Text = llp.report.ToString();
         }
@@ -131,15 +131,16 @@ namespace LLP
         }
         #endregion
 
-
-        private void clearVectors()
+        #region Methods for working with constraints system
+        private void clearVectorsOfConstraintsSystem()
         {
             x1 = new double[] { };
             x2 = new double[] { };
             sign = new string[] { };
             c = new double[] { };
         }
-        private void initializeVectors()
+
+        private void initializeVectorsOfConstraintsSystem()
         {
             Array.Resize(ref x1, systemOfConstraintsDataGridView.RowCount - 1);
             Array.Resize(ref x2, systemOfConstraintsDataGridView.RowCount - 1);
@@ -147,10 +148,10 @@ namespace LLP
             Array.Resize(ref c, systemOfConstraintsDataGridView.RowCount - 1);
         }
 
-        private void readFromDataGrid ()
+        private void readConstraintSystemFromDataGrid ()
         {
-            clearVectors();
-            initializeVectors();
+            clearVectorsOfConstraintsSystem();
+            initializeVectorsOfConstraintsSystem();
             for (int i=0; i<systemOfConstraintsDataGridView.RowCount-1; i++)
             {
                 x1[i] = returnValueFromString(systemOfConstraintsDataGridView.Rows[i].Cells[1].Value.ToString());
@@ -184,7 +185,7 @@ namespace LLP
             systemOfConstraintsDataGridView.Rows.Add(row);
             systemOfConstraintsDataGridView.Rows[kolvoStrok].ReadOnly = true;
         }
+        #endregion
 
-        
     }
 }
