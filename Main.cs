@@ -33,8 +33,9 @@ namespace LLP
         private void button1_Click (object sender, EventArgs e)
         {
             readConstraintSystemFromDataGrid();
-            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint());
+            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
             richTextBox1.Text = llp.report.ToString();
+            richTextBox1.Text += $"/n {llp.x}  ===  {llp.y}";
         }
 
         private void Main_Load (object sender, EventArgs e)
@@ -187,5 +188,15 @@ namespace LLP
         }
         #endregion
 
+        #region Object function
+        private ObjectFunctionModel getObjectFunctionFromTable()
+        {
+            ObjectFunctionModel objectFunction = new ObjectFunctionModel();
+            objectFunction.x1 = returnValueFromString(objectFunctionDataGridView.Rows[0].Cells[1].Value.ToString());
+            objectFunction.x2 = returnValueFromString(objectFunctionDataGridView.Rows[0].Cells[2].Value.ToString());
+            objectFunction.minimize = objectFunctionDataGridView.Rows[0].Cells[0].Value.ToString() == "F(x)->min" ? true:false;
+            return objectFunction;
+        }
+        #endregion
     }
 }

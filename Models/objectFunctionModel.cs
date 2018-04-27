@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace LLP.Models
 {
-    class GoalModel
+    class ObjectFunctionModel
     {
-        double x1 { get; set; }
-        double x2 { get; set; }
-        bool minimize { get; set; }
+        public double x1 { get; set; }
+        public double x2 { get; set; }
+        public bool minimize { get; set; }
     }
 }

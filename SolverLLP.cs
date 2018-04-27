@@ -14,13 +14,16 @@ namespace LLP
     {
         public Report report;
         private ConstraintsSystemModel constraints;
+        private ObjectFunctionModel objectFunction;
         private Decision x1;
         private Decision x2;
         public double x;
         public double y;
         Model modelOfLLP;
-        public SolverLLP (ConstraintsSystemModel _constraints)
+         
+        public SolverLLP (ConstraintsSystemModel _constraints, ObjectFunctionModel _objectFunction)
         {
+            objectFunction = _objectFunction;
             constraints = _constraints;
             solveLLP();
         }
@@ -37,11 +40,10 @@ namespace LLP
 
             modelOfLLP.AddDecisions(x1, x2);
 
-            modelOfLLP.AddConstraints("limits",
-                0 <= x1,
-                0 <= x2);
-            addConstraints();
-            modelOfLLP.AddGoal("cost", GoalKind.Maximize, 20 * x1 + 1000 * x2);
+            modelOfLLP.AddConstraints("limits", 0 <= x1, 0 <= x2);
+            addConstraintsSystem();
+            addObjectFunction();
+            //modelOfLLP.AddGoal("cost", GoalKind.Maximize, 20 * x1 + 1000 * x2);
 
             Solution solution = context.Solve(new SimplexDirective());
             report = solution.GetReport();
@@ -50,13 +52,18 @@ namespace LLP
             #endregion
         }
 
-        //Закончить метод
-        private void addGoal ()
+        private void addObjectFunction ()
         {
-
+            if (objectFunction.minimize)
+            {
+                modelOfLLP.AddGoal("cost", GoalKind.Minimize, objectFunction.x1 * x1 + objectFunction.x2 * x2);
+            } else
+            {
+                modelOfLLP.AddGoal("cost", GoalKind.Maximize, objectFunction.x1 * x1 + objectFunction.x2 * x2);
+            }
         }
 
-        private void addConstraints ()
+        private void addConstraintsSystem ()
         {
             for (int i = 0; i < constraints.rowCount; i++)
             {
