@@ -24,10 +24,23 @@ namespace LLP
         double[] c = new double[] { };
         #endregion
 
-        #region Method of Main 
+        #region Method of Main form
         public Main ()
         {
             InitializeComponent();
+        }
+
+        private void button1_Click (object sender, EventArgs e)
+        {
+            readFromDataGrid();
+            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint());
+            richTextBox1.Text = llp.report.ToString();
+        }
+
+        private void Main_Load (object sender, EventArgs e)
+        {
+            objectFunctionDataGridView.RowCount = 1;
+            createConstraintSystemTable(1);
         }
 
         private void textBox1_KeyPress (object sender, KeyPressEventArgs e)
@@ -51,11 +64,12 @@ namespace LLP
         {
             if (e.KeyCode == Keys.Enter)
             {
-                createTable(Convert.ToInt32(returnValueFromTextBox(sender as TextBox) < 1 ? 1: returnValueFromTextBox(sender as TextBox)));
+                createConstraintSystemTable(Convert.ToInt32(returnValueFromTextBox(sender as TextBox) < 1 ? 1: returnValueFromTextBox(sender as TextBox)));
             }
         }
         #endregion
 
+        #region Methods for working with graph of function
         private double returnValueFromString (string str)
         {
             try
@@ -115,6 +129,9 @@ namespace LLP
             chartGraphic.Series[index].Points.AddXY(c3 / c1, 0);
             chartGraphic.Series[index].Points.AddXY(0, c3 / c2);
         }
+        #endregion
+
+
         private void clearVectors()
         {
             x1 = new double[] { };
@@ -143,9 +160,9 @@ namespace LLP
             }
         }
 
-        private ConstraintsModel createModelSystemOfConstraint ()
+        private ConstraintsSystemModel createModelSystemOfConstraint ()
         {
-            ConstraintsModel constraints = new ConstraintsModel();
+            ConstraintsSystemModel constraints = new ConstraintsSystemModel();
             constraints.x1 = x1;
             constraints.x2 = x2;
             constraints.sign = sign;
@@ -154,7 +171,7 @@ namespace LLP
             return constraints;
         }
 
-        private void createTable (int kolvoStrok)
+        private void createConstraintSystemTable (int kolvoStrok)
         {
             systemOfConstraintsDataGridView.RowCount = 0;
             string[] row = new string [] { };
@@ -168,18 +185,6 @@ namespace LLP
             systemOfConstraintsDataGridView.Rows[kolvoStrok].ReadOnly = true;
         }
 
-        private void button1_Click (object sender, EventArgs e)
-        {
-            readFromDataGrid();
-        }
-
-        private void button2_Click (object sender, EventArgs e)
-        {
-            readFromDataGrid();
-            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint());
-            richTextBox1.Text = llp.report.ToString();
-        }
-
-       
+        
     }
 }

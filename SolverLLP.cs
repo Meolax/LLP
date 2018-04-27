@@ -13,13 +13,13 @@ namespace LLP
     class SolverLLP
     {
         public Report report;
-        private ConstraintsModel constraints;
+        private ConstraintsSystemModel constraints;
         private Decision x1;
         private Decision x2;
         public double x;
         public double y;
         Model modelOfLLP;
-        public SolverLLP (ConstraintsModel _constraints)
+        public SolverLLP (ConstraintsSystemModel _constraints)
         {
             constraints = _constraints;
             solveLLP();
