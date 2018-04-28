@@ -33,7 +33,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.outputRichTextBox = new System.Windows.Forms.RichTextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.systemOfConstraintsDataGridView = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -86,14 +86,14 @@
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             this.textBox1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyUp);
             // 
-            // richTextBox1
+            // outputRichTextBox
             // 
-            this.richTextBox1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.richTextBox1.Location = new System.Drawing.Point(94, 594);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(1278, 83);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.outputRichTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.outputRichTextBox.Location = new System.Drawing.Point(94, 594);
+            this.outputRichTextBox.Name = "outputRichTextBox";
+            this.outputRichTextBox.Size = new System.Drawing.Size(1278, 83);
+            this.outputRichTextBox.TabIndex = 4;
+            this.outputRichTextBox.Text = "";
             // 
             // groupBox2
             // 
@@ -221,7 +221,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1372, 677);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.outputRichTextBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.Name = "Main";
@@ -239,7 +239,7 @@
         #endregion
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox outputRichTextBox;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView objectFunctionDataGridView;

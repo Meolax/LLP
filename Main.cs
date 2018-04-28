@@ -34,8 +34,7 @@ namespace LLP
         {
             readConstraintSystemFromDataGrid();
             SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
-            richTextBox1.Text = llp.report.ToString();
-            richTextBox1.Text += $"/n {llp.x}  ===  {llp.y}";
+            outputRichTextBox.Text = llp.getResult();            
         }
 
         private void Main_Load (object sender, EventArgs e)
@@ -70,7 +69,7 @@ namespace LLP
         }
         #endregion
 
-        #region Methods for working with graph of function
+        #region Text converting
         private double returnValueFromString (string str)
         {
             try
@@ -91,20 +90,22 @@ namespace LLP
             textBox.Text = result.ToString();
             return result;
         }
+        #endregion
 
+        #region Methods for working with graph of function
+        
         private int createNewSeries ()
         {
             var index = chartGraphic.Series.Count;
             chartGraphic.Series.Add(index.ToString());
             chartGraphic.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             return index;
+            
         }
 
         private void addDotWithStrich (int index, double x, params double[] num)
         {
-            chartGraphic.Series[index].Points.AddXY(x, (num[2] - num[1] * x) / num[0]);
-            chartGraphic.Series[index].Points.AddXY(x - 1, ((num[2]) - num[1] * x - 1) / (num[0]) - 1);
-            chartGraphic.Series[index].Points.AddXY(x, (num[2] - num[1] * x) / num[0]);
+            
         }
 
         private void createFunc (double shag, double c1, double c2, double c)
@@ -130,8 +131,16 @@ namespace LLP
             chartGraphic.Series[index].Points.AddXY(c3 / c1, 0);
             chartGraphic.Series[index].Points.AddXY(0, c3 / c2);
         }
+
+        private void createGraphices ()
+        {
+
+        }
+
+        private PointF findCrossPoint ()
         #endregion
 
+        #region Area of task
         #region Methods for working with constraints system
         private void clearVectorsOfConstraintsSystem()
         {
@@ -197,6 +206,7 @@ namespace LLP
             objectFunction.minimize = objectFunctionDataGridView.Rows[0].Cells[0].Value.ToString() == "F(x)->min" ? true:false;
             return objectFunction;
         }
+        #endregion
         #endregion
     }
 }

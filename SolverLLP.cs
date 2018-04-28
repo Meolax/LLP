@@ -7,18 +7,18 @@ using Microsoft.SolverFoundation.Common;
 using Microsoft.SolverFoundation.Services;
 using Microsoft.SolverFoundation.Solvers;
 using LLP.Models;
+using System.Windows.Forms;
 
 namespace LLP
 {
     class SolverLLP
     {
-        public Report report;
+        private Report report;
+        private Solution solution;
         private ConstraintsSystemModel constraints;
         private ObjectFunctionModel objectFunction;
         private Decision x1;
         private Decision x2;
-        public double x;
-        public double y;
         Model modelOfLLP;
          
         public SolverLLP (ConstraintsSystemModel _constraints, ObjectFunctionModel _objectFunction)
@@ -43,15 +43,25 @@ namespace LLP
             modelOfLLP.AddConstraints("limits", 0 <= x1, 0 <= x2);
             addConstraintsSystem();
             addObjectFunction();
-            //modelOfLLP.AddGoal("cost", GoalKind.Maximize, 20 * x1 + 1000 * x2);
-
-            Solution solution = context.Solve(new SimplexDirective());
-            report = solution.GetReport();
-            x = x1.GetDouble();
-            y = x2.ToDouble();
+            
+            solution = context.Solve(new SimplexDirective());
             #endregion
         }
 
+        public string getResult ()
+        {
+            string fx = objectFunction.minimize ? "F(X)->min = " : "F(X)->min = ";
+            switch (solution.Quality)
+            {
+                case Microsoft.SolverFoundation.Services.SolverQuality.Optimal:
+                    return $"X1: {solution.Decisions.ElementAt(0).ToString()};/n" +
+                           $"X2: {solution.Decisions.ElementAt(1).ToString()};/n" +
+                           $"{fx}{solution.Goals.ToString()};";
+                case Microsoft.SolverFoundation.Services.SolverQuality.Unbounded:
+                    return  "There is no optimal solution";
+            }
+            return "Error!!!";
+        }
         private void addObjectFunction ()
         {
             if (objectFunction.minimize)
