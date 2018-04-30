@@ -34,11 +34,10 @@ namespace LLP
 
         private void button1_Click (object sender, EventArgs e)
         {
-            readConstraintSystemFromDataGrid();
-       //     SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
-         //   richTextBox1.Text = llp.getResult();
-            findAllCrossPoints(createModelSystemOfConstraint());
-          //  findCrossPoint(new FunctionModel(x1[0], x2[0], c[0]), new FunctionModel(x1[1], x2[1], c[1]));            
+            //readConstraintSystemFromDataGrid();
+            //     SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
+            //   richTextBox1.Text = llp.getResult();
+            createFunc(1, new ConstraintModel { x1 = 0, x2 = 8, c = 4 });
         }
 
         private void Main_Load (object sender, EventArgs e)
@@ -96,93 +95,45 @@ namespace LLP
         }
         #endregion
 
-        #region Methods for working with graph of function
-        
         private int createNewSeries ()
         {
             var index = chartGraphic.Series.Count;
             chartGraphic.Series.Add(index.ToString());
             chartGraphic.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             return index;
-            
+
         }
 
-        private void addDotWithStrich (int index, double x, params double[] num)
+        private void createFunc (double shag, ConstraintModel constraint)
         {
-            
-        }
-
-        private void createFunc (double shag, double c1, double c2, double c)
-        {
-            var index = createNewSeries();
-            for (double i = -10; i <= 30; i += shag)
+            if (constraint.x1 == 0 && constraint.x2 == 0)
             {
-                var x = Math.Round(i, 2);
-                if (x % 0.5 == 0)
-                {
-                    addDotWithStrich(index, x, c1, c2, c);
-                }
-                else
-                {
-                    chartGraphic.Series[index].Points.AddXY(x, (c - c1 * x) / c2);
-                }
-            }
-        }
-
-        private void createGraphic (double c1, double c2, double c3)
-        {
-            var index = createNewSeries();
-            chartGraphic.Series[index].Points.AddXY(c3 / c1, 0);
-            chartGraphic.Series[index].Points.AddXY(0, c3 / c2);
-        }
-
-        private void createGraphices ()
-        {
-
-        }
-
-
-        private bool canIFindCrossPoint (FunctionModel function1, FunctionModel function2)
-        {
-            var a1 = -function1.x2 / function1.x1;
-            var c1 = function1.c / function1.x1;
-            var a2 = -function2.x2 / function2.x1;
-            var c2 = function2.c / function2.x1;
-            if (a1-a2==0 && c1-c2 == 0)
+                throw new Exception("Argument error!");
+            } else if (constraint.x1 == 0)
             {
-                return false;
+                var index = createNewSeries();
+                for (double i = -10; i <= 30; i += shag)
+                {
+                    var x = Math.Round(i, 2);
+                    chartGraphic.Series[index].Points.AddXY(x, (constraint.c) / constraint.x2);
+                }
+            } else if (constraint.x2 == 0)
+            {
+                var index = createNewSeries();
+                for (double i = 0; i <= 30; i += shag)
+                {
+                    var x = Math.Round(i, 2);
+                    chartGraphic.Series[index].Points.AddXY((constraint.c) / constraint.x1, x );
+                }
             } else {
-                return true;
-            }
-        }
-
-        private void findAllCrossPoints (ConstraintsSystemModel constraintsSystem)
-        {
-            for (int i = 0; i < constraintsSystem.rowCount-1; i++)
-                for (int j=i+1; j < constraintsSystem.rowCount;j++)
+                var index = createNewSeries();
+                for (double i = -10; i <= 30; i += shag)
                 {
-                    if (canIFindCrossPoint (new FunctionModel(x1[i], x2[i], c[i]), new FunctionModel(x1[j], x2[j], c[j])))
-                    {
-                        findCrossPoint(new FunctionModel(x1[i], x2[i], c[i]), new FunctionModel(x1[j], x2[j], c[j]));
-                    }
+                    var x = Math.Round(i, 2);
+                    chartGraphic.Series[index].Points.AddXY(x, (constraint.c - constraint.x1 * x) / constraint.x2);
                 }
+            }            
         }
-        private void findCrossPoint (FunctionModel function1, FunctionModel function2)
-        {
-            var a1 = -function1.x2 / function1.x1;
-            var c1 = function1.c / function1.x1;
-            var a2 = -function2.x2 / function2.x1;
-            var c2 = function2.c / function2.x1;
-            x1Point.Add((c2 - c1) / (a1 - a2));
-            MessageBox.Show(((c2 - c1) / (a1 - a2)).ToString());
-            a1 = -function1.x1 / function1.x2;
-            c1 = function1.c / function1.x2;
-            a2 = -function2.x1 / function2.x2;
-            c2 = function2.c / function2.x2;
-            x2Point.Add((c2 - c1) / (a1 - a2));
-            MessageBox.Show(((c2-c1) / (a1 -a2)).ToString());
-        }
-        #endregion
 
         #region Area of task
         #region Methods for working with constraints system

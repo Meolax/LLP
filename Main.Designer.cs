@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent ()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
@@ -40,17 +40,19 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.chartGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.objectFunctionDataGridView = new System.Windows.Forms.DataGridView();
             this.Column6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.chartGraphic = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.systemOfConstraintsDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectFunctionDataGridView)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -86,8 +88,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Controls.Add(this.systemOfConstraintsDataGridView);
-            this.groupBox2.Controls.Add(this.chartGraphic);
             this.groupBox2.Controls.Add(this.objectFunctionDataGridView);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(94, 44);
@@ -95,7 +97,7 @@
             this.groupBox2.Size = new System.Drawing.Size(1278, 550);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "LLP model";
             // 
             // systemOfConstraintsDataGridView
             // 
@@ -113,7 +115,7 @@
             this.systemOfConstraintsDataGridView.Name = "systemOfConstraintsDataGridView";
             this.systemOfConstraintsDataGridView.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.systemOfConstraintsDataGridView.RowTemplate.Height = 24;
-            this.systemOfConstraintsDataGridView.Size = new System.Drawing.Size(486, 450);
+            this.systemOfConstraintsDataGridView.Size = new System.Drawing.Size(463, 450);
             this.systemOfConstraintsDataGridView.TabIndex = 1;
             // 
             // Column1
@@ -149,25 +151,6 @@
             this.Column5.HeaderText = "c";
             this.Column5.Name = "Column5";
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // chartGraphic
-            // 
-            chartArea1.AxisX.Interval = 1D;
-            chartArea1.AxisX.Maximum = 10D;
-            chartArea1.AxisX.Minimum = 0D;
-            chartArea1.AxisY.Interval = 1D;
-            chartArea1.AxisY.Maximum = 10D;
-            chartArea1.AxisY.Minimum = 0D;
-            chartArea1.Name = "ChartArea1";
-            this.chartGraphic.ChartAreas.Add(chartArea1);
-            this.chartGraphic.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend1.Name = "Legend1";
-            this.chartGraphic.Legends.Add(legend1);
-            this.chartGraphic.Location = new System.Drawing.Point(3, 97);
-            this.chartGraphic.Name = "chartGraphic";
-            this.chartGraphic.Size = new System.Drawing.Size(1272, 450);
-            this.chartGraphic.TabIndex = 1;
-            this.chartGraphic.Text = "chart1";
             // 
             // objectFunctionDataGridView
             // 
@@ -215,6 +198,36 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.chartGraphic);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox3.Location = new System.Drawing.Point(466, 97);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(809, 450);
+            this.groupBox3.TabIndex = 3;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Graphics";
+            // 
+            // chartGraphic
+            // 
+            chartArea2.AxisX.Interval = 1D;
+            chartArea2.AxisX.Maximum = 10D;
+            chartArea2.AxisX.Minimum = 0D;
+            chartArea2.AxisY.Interval = 1D;
+            chartArea2.AxisY.Maximum = 10D;
+            chartArea2.AxisY.Minimum = 0D;
+            chartArea2.Name = "ChartArea1";
+            this.chartGraphic.ChartAreas.Add(chartArea2);
+            this.chartGraphic.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend2.Name = "Legend1";
+            this.chartGraphic.Legends.Add(legend2);
+            this.chartGraphic.Location = new System.Drawing.Point(3, 18);
+            this.chartGraphic.Name = "chartGraphic";
+            this.chartGraphic.Size = new System.Drawing.Size(803, 429);
+            this.chartGraphic.TabIndex = 3;
+            this.chartGraphic.Text = "chart1";
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -230,8 +243,9 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.systemOfConstraintsDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.objectFunctionDataGridView)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartGraphic)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -242,7 +256,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView objectFunctionDataGridView;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartGraphic;
         private System.Windows.Forms.DataGridView systemOfConstraintsDataGridView;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
@@ -253,6 +266,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartGraphic;
     }
 }
 
