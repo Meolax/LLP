@@ -57,7 +57,7 @@
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\ConstraintModel.cs" />
-    <Compile Include="Models\ConstraintsSystemModel.cs" />
+    <Compile Include="Models\ConstraintSystemModel.cs" />
     <Compile Include="Models\FunctionModel.cs" />
     <Compile Include="Models\ObjectFunctionModel.cs" />
     <Compile Include="Program.cs" />

@@ -15,13 +15,13 @@ namespace LLP
     {
         //private Report report;
         private Solution solution;
-        private ConstraintsSystemModel constraints;
+        private ConstraintSystemModel constraints;
         private ObjectFunctionModel objectFunction;
         private Decision x1;
         private Decision x2;
         Model modelOfLLP;
          
-        public SolverLLP (ConstraintsSystemModel _constraints, ObjectFunctionModel _objectFunction)
+        public SolverLLP (ConstraintSystemModel _constraints, ObjectFunctionModel _objectFunction)
         {
             objectFunction = _objectFunction;
             constraints = _constraints;
@@ -54,9 +54,9 @@ namespace LLP
             switch (solution.Quality)
             {
                 case Microsoft.SolverFoundation.Services.SolverQuality.Optimal:
-                    return $"X1: {solution.Decisions.ElementAt(0).ToString()};/n" +
-                           $"X2: {solution.Decisions.ElementAt(1).ToString()};/n" +
-                           $"{fx}{solution.Goals.ToString()};";
+                    return $"X1: {solution.Decisions.ElementAt(0).ToString()};\n" +
+                           $"X2: {solution.Decisions.ElementAt(1).ToString()};\n" +
+                           $"{fx}{solution.Goals.ElementAt(0).ToString()};";
                 case Microsoft.SolverFoundation.Services.SolverQuality.Unbounded:
                     return  "There is no optimal solution";
             }

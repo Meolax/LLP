@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
 using LLP.Models;
+using LLP.Controlers;
 
 
 
@@ -34,10 +35,11 @@ namespace LLP
 
         private void button1_Click (object sender, EventArgs e)
         {
-            //readConstraintSystemFromDataGrid();
-            //     SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
-            //   richTextBox1.Text = llp.getResult();
-            createFunc(1, new ConstraintModel { x1 = 0, x2 = 8, c = 4 });
+            readConstraintSystemFromDataGrid();
+            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
+            richTextBox1.Text = llp.getResult();
+            Graphices graphices = new Graphices(ref chartGraphic, createModelSystemOfConstraint());
+            graphices.Draw();
         }
 
         private void Main_Load (object sender, EventArgs e)
@@ -94,46 +96,9 @@ namespace LLP
             return result;
         }
         #endregion
+        
 
-        private int createNewSeries ()
-        {
-            var index = chartGraphic.Series.Count;
-            chartGraphic.Series.Add(index.ToString());
-            chartGraphic.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            return index;
-
-        }
-
-        private void createFunc (double shag, ConstraintModel constraint)
-        {
-            if (constraint.x1 == 0 && constraint.x2 == 0)
-            {
-                throw new Exception("Argument error!");
-            } else if (constraint.x1 == 0)
-            {
-                var index = createNewSeries();
-                for (double i = -10; i <= 30; i += shag)
-                {
-                    var x = Math.Round(i, 2);
-                    chartGraphic.Series[index].Points.AddXY(x, (constraint.c) / constraint.x2);
-                }
-            } else if (constraint.x2 == 0)
-            {
-                var index = createNewSeries();
-                for (double i = 0; i <= 30; i += shag)
-                {
-                    var x = Math.Round(i, 2);
-                    chartGraphic.Series[index].Points.AddXY((constraint.c) / constraint.x1, x );
-                }
-            } else {
-                var index = createNewSeries();
-                for (double i = -10; i <= 30; i += shag)
-                {
-                    var x = Math.Round(i, 2);
-                    chartGraphic.Series[index].Points.AddXY(x, (constraint.c - constraint.x1 * x) / constraint.x2);
-                }
-            }            
-        }
+       
 
         #region Area of task
         #region Methods for working with constraints system
@@ -166,9 +131,9 @@ namespace LLP
             }
         }
 
-        private ConstraintsSystemModel createModelSystemOfConstraint ()
+        private ConstraintSystemModel createModelSystemOfConstraint ()
         {
-            ConstraintsSystemModel constraints = new ConstraintsSystemModel();
+            ConstraintSystemModel constraints = new ConstraintSystemModel();
             constraints.x1 = x1;
             constraints.x2 = x2;
             constraints.sign = sign;

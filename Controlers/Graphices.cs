@@ -12,17 +12,23 @@ namespace LLP.Controlers
     class Graphices
     {
         #region Properties
-        Chart chartGraphic;
+        private Chart chartGraphic;
+        private ConstraintSystemModel constraintSystem;
         #endregion
 
-        public Graphices (ref Chart chart, ConstraintsSystemModel constraintsSystem)
+        public Graphices (ref Chart chart, ConstraintSystemModel _constraintsSystem)
         {
             chartGraphic = chart;
+            constraintSystem = _constraintsSystem;
         }
 
         public void Draw ()
         {
-
+            chartGraphic.Series.Clear();
+            for (int i=0; i<constraintSystem.rowCount; i++)
+            {
+                createFunc(1, new ConstraintModel { x1 = constraintSystem.x1[i], x2 = constraintSystem.x2[i], c = constraintSystem.c[i] });
+            }
         }
 
         private bool isThePointIncludedIntheConstraint (double x, double y, ConstraintModel constraint)
@@ -30,21 +36,14 @@ namespace LLP.Controlers
             if (constraint.sign == ">=")
             {
                 if (x*constraint.x1 + y*constraint.x2 >= constraint.c)
-                {
                     return true;
-                }
             } else if (constraint.sign == "<=")
             {
                 if (x * constraint.x1 + y * constraint.x2 <= constraint.c)
-                {
                     return true;
-                }
             }
             return false;
-        }
-
-        #region Methods for working with graph of function
-        
+        }        
 
         private int createNewSeries ()
         {
@@ -52,7 +51,6 @@ namespace LLP.Controlers
             chartGraphic.Series.Add(index.ToString());
             chartGraphic.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             return index;
-
         }
 
         private void addDotWithStrich (int index, double x, params double[] num)
@@ -62,7 +60,7 @@ namespace LLP.Controlers
             chartGraphic.Series[index].Points.AddXY(x, (num[2] - num[1] * x) / num[0]);
         }
 
-        //переделать метод на добавление огрниченрия вместо штриха
+        //Придумать как добавить штрих красиво
         private void createFunc (double shag, double c1, double c2, double c)
         {
             var index = createNewSeries();
@@ -80,18 +78,40 @@ namespace LLP.Controlers
             }
         }
 
-        private void createGraphic (double c1, double c2, double c3)
+        private void createFunc (double shag, ConstraintModel constraint)
         {
-            var index = createNewSeries();
-            chartGraphic.Series[index].Points.AddXY(c3 / c1, 0);
-            chartGraphic.Series[index].Points.AddXY(0, c3 / c2);
+            if (constraint.x1 == 0 && constraint.x2 == 0)
+            {
+                throw new Exception("Argument error!");
+            }
+            else if (constraint.x1 == 0)
+            {
+                var index = createNewSeries();
+                for (double i = -10; i <= 30; i += shag)
+                {
+                    var x = Math.Round(i, 2);
+                    chartGraphic.Series[index].Points.AddXY(x, (constraint.c) / constraint.x2);
+                }
+            }
+            else if (constraint.x2 == 0)
+            {
+                var index = createNewSeries();
+                for (double i = 0; i <= 30; i += shag)
+                {
+                    var x = Math.Round(i, 2);
+                    chartGraphic.Series[index].Points.AddXY((constraint.c) / constraint.x1, x);
+                }
+            }
+            else
+            {
+                var index = createNewSeries();
+                for (double i = -10; i <= 30; i += shag)
+                {
+                    var x = Math.Round(i, 2);
+                    chartGraphic.Series[index].Points.AddXY(x, (constraint.c - constraint.x1 * x) / constraint.x2);
+                }
+            }
         }
-
-        private void createGraphices ()
-        {
-
-        }
-
 
         private bool canIFindCrossPoint (FunctionModel function1, FunctionModel function2)
         {
@@ -135,6 +155,6 @@ namespace LLP.Controlers
         //    c2 = function2.c / function2.x2;
         //    x2Point.Add((c2 - c1) / (a1 - a2));
         //}
-        #endregion
+        
     }
 }
