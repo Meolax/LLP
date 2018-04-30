@@ -18,6 +18,8 @@ namespace LLP
     {
         #region Property
         public Random random = new Random();
+        List<double> x1Point = new List<double>();
+        List<double> x2Point = new List<double>();
         double[] x1 = new double[] { };
         double[] x2 = new double[] { };
         string[] sign = new string[] { };
@@ -33,8 +35,10 @@ namespace LLP
         private void button1_Click (object sender, EventArgs e)
         {
             readConstraintSystemFromDataGrid();
-            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
-            outputRichTextBox.Text = llp.getResult();            
+       //     SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
+         //   richTextBox1.Text = llp.getResult();
+            findAllCrossPoints(createModelSystemOfConstraint());
+          //  findCrossPoint(new FunctionModel(x1[0], x2[0], c[0]), new FunctionModel(x1[1], x2[1], c[1]));            
         }
 
         private void Main_Load (object sender, EventArgs e)
@@ -137,7 +141,47 @@ namespace LLP
 
         }
 
-        private PointF findCrossPoint ()
+
+        private bool canIFindCrossPoint (FunctionModel function1, FunctionModel function2)
+        {
+            var a1 = -function1.x2 / function1.x1;
+            var c1 = function1.c / function1.x1;
+            var a2 = -function2.x2 / function2.x1;
+            var c2 = function2.c / function2.x1;
+            if (a1-a2==0 && c1-c2 == 0)
+            {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        private void findAllCrossPoints (ConstraintsSystemModel constraintsSystem)
+        {
+            for (int i = 0; i < constraintsSystem.rowCount-1; i++)
+                for (int j=i+1; j < constraintsSystem.rowCount;j++)
+                {
+                    if (canIFindCrossPoint (new FunctionModel(x1[i], x2[i], c[i]), new FunctionModel(x1[j], x2[j], c[j])))
+                    {
+                        findCrossPoint(new FunctionModel(x1[i], x2[i], c[i]), new FunctionModel(x1[j], x2[j], c[j]));
+                    }
+                }
+        }
+        private void findCrossPoint (FunctionModel function1, FunctionModel function2)
+        {
+            var a1 = -function1.x2 / function1.x1;
+            var c1 = function1.c / function1.x1;
+            var a2 = -function2.x2 / function2.x1;
+            var c2 = function2.c / function2.x1;
+            x1Point.Add((c2 - c1) / (a1 - a2));
+            MessageBox.Show(((c2 - c1) / (a1 - a2)).ToString());
+            a1 = -function1.x1 / function1.x2;
+            c1 = function1.c / function1.x2;
+            a2 = -function2.x1 / function2.x2;
+            c2 = function2.c / function2.x2;
+            x2Point.Add((c2 - c1) / (a1 - a2));
+            MessageBox.Show(((c2-c1) / (a1 -a2)).ToString());
+        }
         #endregion
 
         #region Area of task

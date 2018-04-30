@@ -13,7 +13,7 @@ namespace LLP
 {
     class SolverLLP
     {
-        private Report report;
+        //private Report report;
         private Solution solution;
         private ConstraintsSystemModel constraints;
         private ObjectFunctionModel objectFunction;
