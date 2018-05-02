@@ -19,8 +19,6 @@ namespace LLP
     {
         #region Property
         public Random random = new Random();
-        List<double> x1Point = new List<double>();
-        List<double> x2Point = new List<double>();
         double[] x1 = new double[] { };
         double[] x2 = new double[] { };
         string[] sign = new string[] { };
@@ -36,10 +34,11 @@ namespace LLP
         private void button1_Click (object sender, EventArgs e)
         {
             readConstraintSystemFromDataGrid();
-            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
-            richTextBox1.Text = llp.getResult();
-            Graphices graphices = new Graphices(ref chartGraphic, createModelSystemOfConstraint());
+            //SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
+            //richTextBox1.Text = llp.getResult();
+            Graphices graphices = new Graphices(ref chartGraphic, createModelSystemOfConstraint(), getObjectFunctionFromTable());
             graphices.Draw();
+            chartGraphic.ChartAreas.ElementAt(0).AxisX.Maximum = 20;
         }
 
         private void Main_Load (object sender, EventArgs e)
@@ -96,9 +95,6 @@ namespace LLP
             return result;
         }
         #endregion
-        
-
-       
 
         #region Area of task
         #region Methods for working with constraints system
@@ -151,7 +147,7 @@ namespace LLP
                 row = new string[] { i.ToString(), "","","<=" };
                 systemOfConstraintsDataGridView.Rows.Add(row);
             }
-            row = new string[] {"", "", "x1, x2", ">=", "0" };
+            row = new string[] {"", "", "X1, X2", ">=", "0" };
             systemOfConstraintsDataGridView.Rows.Add(row);
             systemOfConstraintsDataGridView.Rows[kolvoStrok].ReadOnly = true;
         }

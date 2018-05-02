@@ -42,11 +42,11 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.objectFunctionDataGridView = new System.Windows.Forms.DataGridView();
+            this.Column6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -157,13 +157,13 @@
             // 
             // Column2
             // 
-            this.Column2.HeaderText = "x1";
+            this.Column2.HeaderText = "X1";
             this.Column2.Name = "Column2";
             this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // Column3
             // 
-            this.Column3.HeaderText = "x2";
+            this.Column3.HeaderText = "X2";
             this.Column3.Name = "Column3";
             this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
@@ -178,38 +178,9 @@
             // 
             // Column5
             // 
-            this.Column5.HeaderText = "c";
+            this.Column5.HeaderText = "C";
             this.Column5.Name = "Column5";
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button1.Location = new System.Drawing.Point(0, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(94, 677);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "Solve LLP";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "x2";
-            this.Column8.Name = "Column8";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "x1";
-            this.Column7.Name = "Column7";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "f(x)";
-            this.Column6.Items.AddRange(new object[] {
-            "F(x)->max",
-            "F(x)->min"});
-            this.Column6.Name = "Column6";
             // 
             // objectFunctionDataGridView
             // 
@@ -227,6 +198,35 @@
             this.objectFunctionDataGridView.RowTemplate.Height = 24;
             this.objectFunctionDataGridView.Size = new System.Drawing.Size(1272, 64);
             this.objectFunctionDataGridView.TabIndex = 0;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "f(x)";
+            this.Column6.Items.AddRange(new object[] {
+            "F(x)->max",
+            "F(x)->min"});
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "X1";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "X2";
+            this.Column8.Name = "Column8";
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button1.Location = new System.Drawing.Point(0, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 677);
+            this.button1.TabIndex = 3;
+            this.button1.Text = "Solve LLP";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Main
             // 
