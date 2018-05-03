@@ -34,8 +34,8 @@ namespace LLP
             context.ClearModel();
             modelOfLLP = context.CreateModel();
 
-            x1 = new Decision(Domain.IntegerNonnegative, "X1");
-            x2 = new Decision(Domain.IntegerNonnegative, "X2");
+            x1 = new Decision(Domain.RealNonnegative, "X1");
+            x2 = new Decision(Domain.RealNonnegative, "X2");
 
             modelOfLLP.AddDecisions(x1, x2);
 
@@ -49,7 +49,7 @@ namespace LLP
 
         public string getResult ()
         {
-            string fx = objectFunction.minimize ? "F(X)->min = " : "F(X)->min = ";
+            string fx = objectFunction.minimize ? "F(X)->min = " : "F(X)->max = ";
             switch (solution.Quality)
             {
                 case Microsoft.SolverFoundation.Services.SolverQuality.Optimal:

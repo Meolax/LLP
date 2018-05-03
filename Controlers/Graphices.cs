@@ -11,6 +11,9 @@ namespace LLP.Controlers
 {
     class Graphices
     {
+        #region Constant
+        private const string errorOFArgument = "Algorithm findCrossPoint";
+        #endregion
         #region Properties
         private Chart chartGraphic;
         private ConstraintSystemModel constraintSystem;
@@ -18,7 +21,7 @@ namespace LLP.Controlers
         private List<double> x1Point = new List<double>();
         private List<double> x2Point = new List<double>();
         private delegate void creatingGraphic (double shag, ConstraintModel constraint);
-        private double a1, a2, c1, c2;
+        private double a1, a2, c1, c2, xMax, xMin, yMax, yMin;
         #endregion
 
         public Graphices (ref Chart chart, ConstraintSystemModel _constraintsSystem, ObjectFunctionModel _objectFunction)
@@ -37,6 +40,7 @@ namespace LLP.Controlers
                 addGraphic(1, constraintSystem.Constraints[i]);
             }
             createGraphicOfObjectFunction(objectFunction);
+            setBounds();
         }
 
         private bool isThePointIncludedIntheConstraint (double x, double y, ConstraintModel constraint)
@@ -123,7 +127,7 @@ namespace LLP.Controlers
         private void createGorizontalGraphic (double shag, ConstraintModel constraint, bool castomName = false, string nameOfSeries = "Default")
         {
             var index = createNewSeries(castomName, nameOfSeries);
-            for (double i = -10; i <= 30; i += shag)
+            for (double i = -10; i <= 50; i += shag)
             {
                 var x = Math.Round(i, 2);
                 chartGraphic.Series[index].Points.AddXY(x, (constraint.c) / constraint.x2);
@@ -133,7 +137,7 @@ namespace LLP.Controlers
         private void createVerticalGraphic (double shag, ConstraintModel constraint, bool castomName = false, string nameOfSeries = "Default")
         {
             var index = createNewSeries(castomName, nameOfSeries);
-            for (double i = 0; i <= 30; i += shag)
+            for (double i = 0; i <= 50; i += shag)
             {
                 var x = Math.Round(i, 2);
                 chartGraphic.Series[index].Points.AddXY((constraint.c) / constraint.x1, x);
@@ -143,7 +147,7 @@ namespace LLP.Controlers
         private void createDefaultGraphic (double shag, ConstraintModel constraint, bool castomName = false, string nameOfSeries = "Default")
         {
             var index = createNewSeries(castomName, nameOfSeries);
-            for (double i = -10; i <= 30; i += shag)
+            for (double i = -10; i <= 50; i += shag)
             {
                 var x = Math.Round(i, 2);
                 chartGraphic.Series[index].Points.AddXY(x, (constraint.c - constraint.x1 * x) / constraint.x2);
@@ -204,17 +208,61 @@ namespace LLP.Controlers
             c1 = function1.C / function1.X2;
             a2 = -function2.X1 / function2.X2;
             c2 = function2.C / function2.X2;
-        }        
+        }
 
-        
+        private void getBounds ()
+        {
+            try
+            {
+                xMax = x1Point.Max() + 5;
+                xMin = (x1Point.Min() < -10 ? x1Point.Min() : -10) - 2;
+                yMax = x2Point.Max() + 5;
+                yMin = (x2Point.Min() < -10 ? x2Point.Min() : -10) - 2;
+                yMin = 0;
+            }
+            catch
+            {
+                xMax = 15;
+                xMin = -5;
+                yMax = 15;
+                yMin = -5;
+            }
+        }
+        private void setBounds ()
+        {
+            findAllCrossPoints(constraintSystem);
+            getBounds();
+            chartGraphic.ChartAreas.ElementAt(0).AxisX.Maximum = xMax;
+            chartGraphic.ChartAreas.ElementAt(0).AxisX.Minimum = xMin;
+            chartGraphic.ChartAreas.ElementAt(0).AxisY.Maximum = yMax;
+            chartGraphic.ChartAreas.ElementAt(0).AxisY.Minimum = yMin;
+        }
+
         private void findCrossPoint (FunctionModel function1, FunctionModel function2)
         {
             if (function1.Type == function2.Type)
             {
-                //default
-            } else
+                if (function1.Type != FunctionModel.typeOfFuncton.Default) throw new Exception();
+                findCrossPointInDefaultGraphices(function1, function2);
+            } 
+
+            if (function1.Type == FunctionModel.typeOfFuncton.Default)
             {
-                
+                if (function2.Type == FunctionModel.typeOfFuncton.Vertical) findCrossPointInVerticalAndDefaultGraphies(function1, function2);
+                if (function2.Type == FunctionModel.typeOfFuncton.Gorizontal) findCrossPointINGorizontalAndDefaultGraphies(function1, function2);
+            }
+
+            
+            if (function1.Type == FunctionModel.typeOfFuncton.Vertical)
+            {
+                if (function2.Type == FunctionModel.typeOfFuncton.Default) findCrossPointInVerticalAndDefaultGraphies(function2, function1);
+                if (function2.Type == FunctionModel.typeOfFuncton.Gorizontal) findCrossPointInVerticalAndGorizontalGraphies(function1, function2);
+            }
+
+            if (function2.Type == FunctionModel.typeOfFuncton.Gorizontal)
+            {
+                if (function2.Type == FunctionModel.typeOfFuncton.Vertical) findCrossPointInVerticalAndGorizontalGraphies(function2, function1);
+                if (function2.Type == FunctionModel.typeOfFuncton.Default) findCrossPointINGorizontalAndDefaultGraphies(function2, function1);
             }
         }
 

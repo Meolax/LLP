@@ -38,7 +38,7 @@ namespace LLP
             richTextBox1.Text = llp.getResult();
             Graphices graphices = new Graphices(ref chartGraphic, createModelSystemOfConstraint(), getObjectFunctionFromTable());
             graphices.Draw();
-            chartGraphic.ChartAreas.ElementAt(0).AxisX.Maximum = 20;
+            //chartGraphic.ChartAreas.ElementAt(0).AxisX.Maximum = 20;
         }
 
         private void Main_Load (object sender, EventArgs e)
