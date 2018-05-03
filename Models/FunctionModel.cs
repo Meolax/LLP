@@ -23,11 +23,11 @@ namespace LLP.Models
             Gorizontal = 3
         }
 
-        public FunctionModel ( double _x1, double _x2, double _c)
+        public FunctionModel ( double x1, double x2, double c)
         {
-            X1 = _x1;
-            X2 = _x2;
-            C = _c;
+            this.X1 = x1;
+            this.X2 = x2;
+            this.C = c;
             setTypeOfFunction();
         }
 
@@ -46,6 +46,20 @@ namespace LLP.Models
             {
                 Type = typeOfFuncton.Default;
             }
+        }
+
+        public static FunctionModel getPerpendicular (FunctionModel functionModel)
+        {
+            return new FunctionModel(-functionModel.X2, functionModel.X1, functionModel.C);           
+        }
+        public static implicit operator FunctionModel (ConstraintModel constraint)
+        {
+            return new FunctionModel(constraint.x1, constraint.x2, constraint.c);
+        }
+
+        public static implicit operator FunctionModel (ObjectFunctionModel functionModel)
+        {
+            return new FunctionModel(functionModel.x1, functionModel.x2, 0);
         }
     }
 }

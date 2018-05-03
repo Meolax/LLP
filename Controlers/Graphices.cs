@@ -17,6 +17,7 @@ namespace LLP.Controlers
         private ObjectFunctionModel objectFunction;
         private List<double> x1Point = new List<double>();
         private List<double> x2Point = new List<double>();
+        private delegate void creatingGraphic (double shag, ConstraintModel constraint);
         private double a1, a2, c1, c2;
         #endregion
 
@@ -33,8 +34,9 @@ namespace LLP.Controlers
             chartGraphic.Series.Clear();
             for (int i=0; i<constraintSystem.rowCount; i++)
             {
-                addGraphic(1, new ConstraintModel { x1 = constraintSystem.x1[i], x2 = constraintSystem.x2[i], c = constraintSystem.c[i] });
-            }            
+                addGraphic(1, constraintSystem.Constraints[i]);
+            }
+            createGraphicOfObjectFunction(objectFunction);
         }
 
         private bool isThePointIncludedIntheConstraint (double x, double y, ConstraintModel constraint)
@@ -57,10 +59,10 @@ namespace LLP.Controlers
             return index;
         }
 
-        private int createNewSeries (string nameOfSeries)
+        private int createNewSeries (bool castomName = false, string nameOfSeries = "Default")
         {
             var index = chartGraphic.Series.Count;
-            chartGraphic.Series.Add(nameOfSeries);
+            chartGraphic.Series.Add(castomName ? nameOfSeries +" "+index.ToString(): index.ToString());
             chartGraphic.Series[index].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             return index;
         }
@@ -91,7 +93,14 @@ namespace LLP.Controlers
         //}
 
         #region Creating graphices
-        private void addGraphic (double shag, ConstraintModel constraint)
+
+        private void createGraphicOfObjectFunction (ObjectFunctionModel objectFunction)
+        {
+            addGraphic(1, objectFunction, true, "F(x)");
+
+            addGraphic(1, FunctionModel.getPerpendicular(objectFunction), true, "Cost");
+        }
+        private void addGraphic (double shag, ConstraintModel constraint, bool castomName=false, string nameOfSeries = "Default")
         {
             if (constraint.x1 == 0 && constraint.x2 == 0)
             {
@@ -99,21 +108,21 @@ namespace LLP.Controlers
             }
             else if (constraint.x1 == 0)
             {
-                createGorizontalGraphic(shag, constraint);
+                createGorizontalGraphic(shag, constraint, castomName, nameOfSeries) ;
             }
             else if (constraint.x2 == 0)
             {
-                createVerticalGraphic(shag, constraint);
+                createVerticalGraphic(shag, constraint, castomName, nameOfSeries);
             }
             else
             {
-                createDefaultGraphic(shag, constraint);
+                createDefaultGraphic(shag, constraint, castomName, nameOfSeries);
             }
         }
 
-        private void createGorizontalGraphic (double shag, ConstraintModel constraint)
+        private void createGorizontalGraphic (double shag, ConstraintModel constraint, bool castomName = false, string nameOfSeries = "Default")
         {
-            var index = createNewSeries();
+            var index = createNewSeries(castomName, nameOfSeries);
             for (double i = -10; i <= 30; i += shag)
             {
                 var x = Math.Round(i, 2);
@@ -121,9 +130,9 @@ namespace LLP.Controlers
             }
         }
 
-        private void createVerticalGraphic (double shag, ConstraintModel constraint)
+        private void createVerticalGraphic (double shag, ConstraintModel constraint, bool castomName = false, string nameOfSeries = "Default")
         {
-            var index = createNewSeries();
+            var index = createNewSeries(castomName, nameOfSeries);
             for (double i = 0; i <= 30; i += shag)
             {
                 var x = Math.Round(i, 2);
@@ -131,9 +140,9 @@ namespace LLP.Controlers
             }
         }
 
-        private void createDefaultGraphic (double shag, ConstraintModel constraint)
+        private void createDefaultGraphic (double shag, ConstraintModel constraint, bool castomName = false, string nameOfSeries = "Default")
         {
-            var index = createNewSeries();
+            var index = createNewSeries(castomName, nameOfSeries);
             for (double i = -10; i <= 30; i += shag)
             {
                 var x = Math.Round(i, 2);
@@ -149,11 +158,9 @@ namespace LLP.Controlers
             for (int i = 0; i < constraintsSystem.rowCount - 1; i++)
                 for (int j = i + 1; j < constraintsSystem.rowCount; j++)
                 {
-                    if (canIFindCrossPoint(new FunctionModel(constraintSystem.x1[i], constraintSystem.x2[i], constraintSystem.c[i]),
-                        new FunctionModel(constraintSystem.x1[j], constraintSystem.x2[j], constraintSystem.c[j])))
+                    if (canIFindCrossPoint(constraintSystem.Constraints[i], constraintSystem.Constraints[j]))
                     {
-                        findCrossPoint(new FunctionModel(constraintSystem.x1[i], constraintSystem.x2[i], constraintSystem.c[i]),
-                            new FunctionModel(constraintSystem.x1[j], constraintSystem.x2[j], constraintSystem.c[j]));
+                        findCrossPoint(constraintSystem.Constraints[i], constraintSystem.Constraints[j]);
                     }
                 }
         }

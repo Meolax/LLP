@@ -13,9 +13,8 @@ namespace LLP
 {
     class SolverLLP
     {
-        //private Report report;
         private Solution solution;
-        private ConstraintSystemModel constraints;
+        private ConstraintSystemModel ConstraintSystem;
         private ObjectFunctionModel objectFunction;
         private Decision x1;
         private Decision x2;
@@ -24,7 +23,7 @@ namespace LLP
         public SolverLLP (ConstraintSystemModel _constraints, ObjectFunctionModel _objectFunction)
         {
             objectFunction = _objectFunction;
-            constraints = _constraints;
+            ConstraintSystem = _constraints;
             solveLLP();
         }
 
@@ -75,18 +74,18 @@ namespace LLP
 
         private void addConstraintsSystem ()
         {
-            for (int i = 0; i < constraints.rowCount; i++)
+            for (int i = 0; i < ConstraintSystem.rowCount; i++)
             {
-                addConstraint(i);
+                addConstraint(i, ConstraintSystem.Constraints[i]);
             }
         }
 
-        private void addConstraint (int index)
+        private void addConstraint (int index, ConstraintModel constraint)
         {
-            if (constraints.sign[index] == "<=")
-            modelOfLLP.AddConstraint($"constraint_{index}", constraints.x1[index] * x1 + constraints.x2[index] * x2 <= constraints.c[index]);
-            if (constraints.sign[index] == ">=")
-                modelOfLLP.AddConstraint($"constraint_{index}", constraints.x1[index] * x1 + constraints.x2[index] * x2 >= constraints.c[index]);
+            if (constraint.sign == "<=")
+            modelOfLLP.AddConstraint($"constraint_{index}", constraint.x1 * x1 + constraint.x2 * x2 <= constraint.c);
+            if (constraint.sign == ">=")
+                modelOfLLP.AddConstraint($"constraint_{index}", constraint.x1 * x1 + constraint.x2 * x2 >= constraint.c);
         }
     }
 }

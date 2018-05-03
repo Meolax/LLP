@@ -34,8 +34,8 @@ namespace LLP
         private void button1_Click (object sender, EventArgs e)
         {
             readConstraintSystemFromDataGrid();
-            //SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
-            //richTextBox1.Text = llp.getResult();
+            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
+            richTextBox1.Text = llp.getResult();
             Graphices graphices = new Graphices(ref chartGraphic, createModelSystemOfConstraint(), getObjectFunctionFromTable());
             graphices.Draw();
             chartGraphic.ChartAreas.ElementAt(0).AxisX.Maximum = 20;
@@ -129,12 +129,7 @@ namespace LLP
 
         private ConstraintSystemModel createModelSystemOfConstraint ()
         {
-            ConstraintSystemModel constraints = new ConstraintSystemModel();
-            constraints.x1 = x1;
-            constraints.x2 = x2;
-            constraints.sign = sign;
-            constraints.c = c;
-            constraints.rowCount = systemOfConstraintsDataGridView.RowCount - 1;
+            ConstraintSystemModel constraints = new ConstraintSystemModel(x1,x2,c,sign);
             return constraints;
         }
 
