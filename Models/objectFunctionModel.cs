@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LLP.Models
 {
-    class ObjectFunctionModel
+    public class ObjectFunctionModel
     {
         public double x1 { get; set; }
         public double x2 { get; set; }

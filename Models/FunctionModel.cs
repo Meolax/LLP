@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace LLP.Models
 {
-    class FunctionModel
+    public class FunctionModel
     {
+        #region Constant
+        string ArgumentError = $"Это не график а фигня!!!";
+        #endregion
         #region Properties
         public double X1 { get; }
         public double X2 { get; }
         public double C { get; }
-        public typeOfFuncton Type { get; private set; }
-        string ArgumentError = $"Это не график а фигня!!!";
+        public typeOfFuncton Type { get; private set; }        
         #endregion
 
         public enum typeOfFuncton
@@ -25,6 +27,10 @@ namespace LLP.Models
 
         public FunctionModel ( double x1, double x2, double c)
         {
+            if (x1==0 && x2==0)
+            {
+                throw new ArgumentException(ArgumentError);
+            }
             this.X1 = x1;
             this.X2 = x2;
             this.C = c;
@@ -33,10 +39,7 @@ namespace LLP.Models
 
         private void setTypeOfFunction ()
         {
-            if (X1 == 0 && X2 == 0)
-            {
-                throw new Exception(ArgumentError);
-            } else if (X1 == 0)
+            if (X1 == 0)
             {
                 Type = typeOfFuncton.Gorizontal;
             } else if (X2 == 0)

@@ -53,9 +53,9 @@ namespace LLP
             switch (solution.Quality)
             {
                 case Microsoft.SolverFoundation.Services.SolverQuality.Optimal:
-                    return $"X1: {solution.Decisions.ElementAt(0).ToString()};\n" +
-                           $"X2: {solution.Decisions.ElementAt(1).ToString()};\n" +
-                           $"{fx}{solution.Goals.ElementAt(0).ToString()};";
+                    return $"X1: {solution.Decisions.ElementAt(0).ToDouble()};\n" +
+                           $"X2: {solution.Decisions.ElementAt(1).ToDouble()};\n" +
+                           $"{fx}{solution.Goals.ElementAt(0).ToDouble()};";
                 case Microsoft.SolverFoundation.Services.SolverQuality.Unbounded:
                     return  "There is no optimal solution";
             }
