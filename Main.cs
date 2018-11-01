@@ -33,12 +33,19 @@ namespace LLP
 
         private void button1_Click (object sender, EventArgs e)
         {
-            readConstraintSystemFromDataGrid();
-            SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(),getObjectFunctionFromTable());
-            richTextBox1.Text = llp.getResult();
-            Graphices graphices = new Graphices(ref chartGraphic, createModelSystemOfConstraint(), getObjectFunctionFromTable());
-            graphices.Draw();
-            //chartGraphic.ChartAreas.ElementAt(0).AxisX.Maximum = 20;
+            try
+            {
+                readConstraintSystemFromDataGrid();
+                SolverLLP llp = new SolverLLP(createModelSystemOfConstraint(), getObjectFunctionFromTable());
+                richTextBox1.Text = llp.getResult();
+                Graphices graphices = new Graphices(ref chartGraphic, new LLPModel (createModelSystemOfConstraint(), getObjectFunctionFromTable(), new LLPModel.Result (llp.x1.ToDouble(), llp.x2.ToDouble())));
+                graphices.Draw();
+            }
+            catch
+            {
+                MessageBox.Show("What happend?!");
+            }
+            
         }
 
         private void Main_Load (object sender, EventArgs e)

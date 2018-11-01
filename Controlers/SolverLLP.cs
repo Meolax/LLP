@@ -16,8 +16,8 @@ namespace LLP
         private Solution solution;
         private ConstraintSystemModel ConstraintSystem;
         private ObjectFunctionModel objectFunction;
-        private Decision x1;
-        private Decision x2;
+        public Decision x1;
+        public Decision x2;
         Model modelOfLLP;
          
         public SolverLLP (ConstraintSystemModel _constraints, ObjectFunctionModel _objectFunction)

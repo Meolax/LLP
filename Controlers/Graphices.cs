@@ -16,30 +16,27 @@ namespace LLP.Controlers
         #endregion
         #region Properties
         private Chart chartGraphic;
-        private ConstraintSystemModel constraintSystem;
-        private ObjectFunctionModel objectFunction;
+        private LLPModel LLP;
         private List<double> x1Point = new List<double>();
         private List<double> x2Point = new List<double>();
         private delegate void creatingGraphic (double shag, ConstraintModel constraint);
         private double a1, a2, c1, c2, xMax, xMin, yMax, yMin;
         #endregion
 
-        public Graphices (ref Chart chart, ConstraintSystemModel _constraintsSystem, ObjectFunctionModel _objectFunction)
+        public Graphices (ref Chart chart, LLPModel LLP)
         {
             chartGraphic = chart;
-            constraintSystem = _constraintsSystem;
-            objectFunction = _objectFunction;
-            
+            this.LLP = LLP;
         }
 
         public void Draw ()
         {
             chartGraphic.Series.Clear();
-            for (int i=0; i<constraintSystem.rowCount; i++)
+            for (int i=0; i<LLP.Constraints.rowCount; i++)
             {
-                addGraphic(1, constraintSystem.Constraints[i]);
+                addGraphic(1, LLP.Constraints.Constraints[i]);
             }
-            createGraphicOfObjectFunction(objectFunction);
+            createGraphicOfObjectFunction(LLP.ObjectFunction);
             setBounds();
         }
 
@@ -104,6 +101,7 @@ namespace LLP.Controlers
 
             addGraphic(1, FunctionModel.getPerpendicular(objectFunction), true, "Cost");
         }
+
         private void addGraphic (double shag, ConstraintModel constraint, bool castomName=false, string nameOfSeries = "Default")
         {
             if (constraint.x1 == 0 && constraint.x2 == 0)
@@ -162,9 +160,9 @@ namespace LLP.Controlers
             for (int i = 0; i < constraintsSystem.rowCount - 1; i++)
                 for (int j = i + 1; j < constraintsSystem.rowCount; j++)
                 {
-                    if (canIFindCrossPoint(constraintSystem.Constraints[i], constraintSystem.Constraints[j]))
+                    if (canIFindCrossPoint(constraintsSystem.Constraints[i], constraintsSystem.Constraints[j]))
                     {
-                        findCrossPoint(constraintSystem.Constraints[i], constraintSystem.Constraints[j]);
+                        findCrossPoint(constraintsSystem.Constraints[i], constraintsSystem.Constraints[j]);
                     }
                 }
         }
@@ -228,9 +226,10 @@ namespace LLP.Controlers
                 yMin = -5;
             }
         }
+
         private void setBounds ()
         {
-            findAllCrossPoints(constraintSystem);
+            findAllCrossPoints(LLP.Constraints);
             getBounds();
             chartGraphic.ChartAreas.ElementAt(0).AxisX.Maximum = xMax;
             chartGraphic.ChartAreas.ElementAt(0).AxisX.Minimum = xMin;
@@ -296,5 +295,10 @@ namespace LLP.Controlers
             x2Point.Add((c2 - c1) / (a1 - a2));
         }
         #endregion
+
+        private void drawResult ()
+        {
+
+        }
     }
 }

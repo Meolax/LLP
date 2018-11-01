@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LLP.Models
 {
-    class ConstraintSystemModel
+    public class ConstraintSystemModel
     {
         public int rowCount { get; }
         public ConstraintModel [] Constraints { get;}

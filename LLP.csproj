@@ -59,6 +59,7 @@
     <Compile Include="Models\ConstraintModel.cs" />
     <Compile Include="Models\ConstraintSystemModel.cs" />
     <Compile Include="Models\FunctionModel.cs" />
+    <Compile Include="Models\LLPModel.cs" />
     <Compile Include="Models\ObjectFunctionModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
